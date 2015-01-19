@@ -223,7 +223,7 @@ Value stakeforcharity(CWallet *pWallet, const Array &params, bool fHelp)
 
     if (fHelp || params.size() < 2 || params.size() > 5)
         throw runtime_error(
-            "stakeforcharity <Colossuscoin2address> <percent> [Change Address] [min amount] [max amount]\n"
+            "stakeforcharity <ColossusCoin2address> <percent> [Change Address] [min amount] [max amount]\n"
             "Gives a percentage of a found stake to a different address, after stake matures\n"
             "Percent is a whole number 1 to 50. Set to 0 to turn off.\n"
             "Change Address, Min and Max Amount are optional\n"
@@ -232,7 +232,7 @@ Value stakeforcharity(CWallet *pWallet, const Array &params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Colossuscoin2 address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid ColossusCoin2 address");
 
     if (params[1].get_int() < 0)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, expected valid percentage");
@@ -250,10 +250,10 @@ Value stakeforcharity(CWallet *pWallet, const Array &params, bool fHelp)
     if (params.size() > 2) {
         changeAddress = params[2].get_str();
         if (!changeAddress.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Colossuscoin2 change address");
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid ColossusCoin2 change address");
         else {
             if(!IsMine(*pWallet, changeAddress.Get()))
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Colossuscoin2 change address not owned");
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "ColossusCoin2 change address not owned");
         }
     }
 
@@ -464,7 +464,7 @@ Value signmessage(CWallet* pWallet, const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 2)
         throw runtime_error(
-            "signmessage <Colossuscoin2address> <message>\n"
+            "signmessage <ColossusCoin2address> <message>\n"
             "Sign a message with the private key of an address"
             + HelpRequiringPassphrase(pWallet));
 
@@ -537,7 +537,7 @@ Value getreceivedbyaddress(CWallet* pWallet, const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
-            "getreceivedbyaddress <Colossuscoin2address> [minconf=1]\n"
+            "getreceivedbyaddress <ColossusCoin2address> [minconf=1]\n"
             "Returns the total amount received by <ColossusCoin2address> in transactions with at least [minconf] confirmations.");
 
     // Bitcoin address
@@ -892,7 +892,7 @@ static CScript _createmultisig(CWallet* pWallet, const Array& params)
     {
         const std::string& ks = keys[i].get_str();
 
-        // Case 1: Colossuscoin2 address and we have full public key:
+        // Case 1: ColossusCoin2 address and we have full public key:
         CBitcoinAddress address(ks);
         if (address.IsValid())
         {
@@ -934,7 +934,7 @@ Value addmultisigaddress(CWallet* pWallet, const Array& params, bool fHelp)
   {
       string msg = "addmultisigaddress <nrequired> <'[\"key\",\"key\"]'> [account]\n"
           "Add a nrequired-to-sign multisignature address to the wallet\"\n"
-          "each key is a Colossuscoin2 address or hex-encoded public key\n"
+          "each key is a ColossusCoin2 address or hex-encoded public key\n"
           "If [account] is specified, assign address to [account].";
       throw runtime_error(msg);
   }
@@ -960,7 +960,7 @@ Value createmultisig(CWallet* pWallet, const Array& params, bool fHelp)
         string msg = "createmultisig <nrequired> <'[\"key\",\"key\"]'>\n"
             "Creates a multi-signature address and returns a json object\n"
             "with keys:\n"
-            "address : Colossuscoin2 address\n"
+            "address : ColossusCoin2 address\n"
             "redeemScript : hex-encoded redemption script";
         throw runtime_error(msg);
     }
@@ -1879,7 +1879,7 @@ Value repairwallet(CWallet* pWallet, const Array& params, bool fHelp)
     return result;
 }
 
-// Colossuscoin2: resend unconfirmed wallet transactions
+// ColossusCoin2: resend unconfirmed wallet transactions
 Value resendtx(CWallet* pWallet, const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
